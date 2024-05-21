@@ -1,0 +1,14 @@
+{
+    "name": "1rm-calculator",
+    "version": "1.0.0",
+    "description": "A simple REST API to calculate 1RM using various formulas",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.19.2"
+    }
+}
