@@ -3,8 +3,11 @@ const formulas = require('../models/oneRMModel');
 
 const calcAll = (req, res) => {
     const { weight, reps } = req.body;
-    
-    if (typeof weight !== 'number' || typeof reps !== 'number' || weight <= 0 || reps <= 0) {
+
+    const w = Number(weight);
+    const r = Number(reps);
+
+    if (w === NaN || r === NaN || w <= 0 || r <= 0) {
         return res.status(400).json({ error: 'Invalid input. Weight and reps must be positive numbers.' });
     }
 
@@ -16,23 +19,64 @@ const calcAll = (req, res) => {
     res.json(results);
 };
 
-const calcOne = (req, res) => {
-    const { weight, reps } = req.body;
-    const abbreviation = req.params.abbreviation.toUpperCase()
-    
-    if (typeof weight !== 'number' || typeof reps !== 'number' || weight <= 0 || reps <= 0) {
+const calcAvg = (req, res) => {
+    const { weight, reps } = req.query;
+
+    const w = Number(weight);
+    const r = Number(reps);
+
+    if (w === NaN || r === NaN || w <= 0 || r <= 0) {
         return res.status(400).json({ error: 'Invalid input. Weight and reps must be positive numbers.' });
     }
 
-    const formula = formulas.find(formula => formula.abbreviation == abbreviation)
+    let sum = 0;
+    formulas.map(formula => {
+        sum += formula.formula(weight, reps)
+    });
+
+    const average = sum / formulas.length;
+
+    res.json(average);
+};
+
+const calcOne = (req, res) => {
+    const { weight, reps } = req.body;
+    const abbreviation = req.params.abbreviation.toUpperCase();
+
+    const w = Number(weight);
+    const r = Number(reps);
+
+    if (w === NaN || r === NaN || w <= 0 || r <= 0) {
+        return res.status(400).json({ error: 'Invalid input. Weight and reps must be positive numbers.' });
+    }
+
+    const formula = formulas.find(formula => formula.abbreviation == abbreviation);
 
     res.json({
         name: formula.name,
-        oneRM: formula.formula(weight, reps)
+        oneRM: formula.formula(w, r)
     });
-}
+};
+
+const calcOneV = (req, res) => {
+    const { weight, reps } = req.query;
+    const abbreviation = req.params.abbreviation.toUpperCase();
+
+    const w = Number(weight);
+    const r = Number(reps);
+
+    if (w === NaN || r === NaN || w <= 0 || r <= 0) {
+        return res.status(400).json({ error: 'Invalid input. Weight and reps must be positive numbers.' });
+    }
+
+    const formula = formulas.find(formula => formula.abbreviation == abbreviation);
+
+    res.json(formula.formula(weight, reps));
+};
 
 module.exports = {
     calcAll,
+    calcAvg,
     calcOne,
+    calcOneV,
 };
