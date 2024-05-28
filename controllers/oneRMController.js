@@ -74,9 +74,14 @@ const calcOneV = (req, res) => {
     res.json(formula.formula(weight, reps));
 };
 
+const home = (req, res) => {
+    res.json();
+}
+
 module.exports = {
     calcAll,
     calcAvg,
     calcOne,
     calcOneV,
+    home
 };
