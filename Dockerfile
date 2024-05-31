@@ -1,8 +1,8 @@
 FROM node:20
 WORKDIR /app
 COPY . .
-EXPOSE 81
+EXPOSE 80
 CMD ["npm", "start"]
 
 # docker network create rmcalc
-# docker run -d -p 81:81 --name rmcalc-express --network rmcalc gillilo/rmcalc-express:latest 
+# docker run -d -p 80:80 --name rmcalc-express --network rmcalc gillilo/rmcalc-express:latest 
