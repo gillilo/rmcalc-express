@@ -1,4 +1,3 @@
-// app.js
 const express = require('express');
 const oneRMRoutes = require('./routes/oneRMRoutes');
 
