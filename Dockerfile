@@ -6,4 +6,5 @@ CMD ["npm", "start"]
 
 # docker network create rmcalc
 # docker build -t gillilo/rmcalc-express:latest .
+# docker push gillilo/rmcalc-express:latest
 # docker run -d -p 80:80 --name rmcalc-express --network rmcalc gillilo/rmcalc-express:latest 
